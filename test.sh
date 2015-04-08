@@ -19,6 +19,17 @@ servers=(
 "acm.tongji.edu.cn"
 "acm.tongji.edu.cn"
 )
+servers2=" \
+sg04.shadowsocks.com.cn \
+tw01.shadowsocks.com.cn \
+jp02.shadowsocks.com.cn \
+jp03.shadowsocks.com.cn \
+jp04.shadowsocks.com.cn \
+jp05.shadowsocks.com.cn \
+hk01.shadowsocks.com.cn \
+hk03.shadowsocks.com.cn \
+hk04.shadowsocks.com.cn \
+"
 test_int=(3.4 5.8 334 98 1.32)
 func_get_avg_ping_time(){ #need a varibale the ip given by user
 	command="ping -q -c 5 $1"
@@ -105,12 +116,14 @@ func_get_min_ping(){ #需要输入array-ip  ;返回avg_time 最小的server
 #(func_get_min_ping ${servers[*]}) 
 
 #用最快的ping-server 替换template 中的目标子段
-answer=${template/"target_server"/$(func_get_min_ping ${servers[*]})} 
-
+#answer=${template/"target_server"/$(func_get_min_ping ${servers[*]})} 
+input=$servers2
+#echo ${input[*]}
+answer=${template/"target_server"/$(func_get_min_ping ${input[*]})} 
 echo -e $answer
 
 #将答案写入文件 任务完成
-echo -e $answer > answer.txt
+#echo -e $answer > answer.txt
 
 
 
@@ -160,4 +173,15 @@ small=$message
 #if [ $(echo "$big > $small" | bc) -eq 1 ]; then
         #echo "$big is bigger than $small"
 #fi
+
+
+
+
+
+
+
+
+
+
+
 
